@@ -2,6 +2,7 @@ package v_builders
 
 import util.TODO
 import util.doc39
+import v_builders.data.Product
 import v_builders.data.getProducts
 import v_builders.htmlLibrary.*
 
@@ -23,18 +24,32 @@ fun renderProductTable(): String {
     return html {
         table {
             tr {
-                td {
+                td(getTitleColor()) {
                     text("Product")
                 }
-                td {
+                td(getTitleColor()) {
                     text("Price")
                 }
-                td {
+                td(getTitleColor()) {
                     text("Popularity")
                 }
             }
             val products = getProducts()
-            todoTask39()
+            products.forEachIndexed(this::render)
         }
     }.toString()
+}
+
+private fun Table.render(index: Int, it: Product) {
+    tr {
+        td(getCellColor(index, 0)) {
+            text(it.description)
+        }
+        td(getCellColor(index, 1)) {
+            text(it.price)
+        }
+        td(getCellColor(index, 2)) {
+            text(it.popularity)
+        }
+    }
 }
